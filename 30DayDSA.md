@@ -8,7 +8,7 @@ This plan prioritizes practical knowledge and focuses on a manageable pace for a
 
 > Day 1-2: > Arrays 
 - Understand basic operations (accessing, iterating, searching).
-- Practice implementing basic array functionalities in Kotlin.
+- Practice implementing basic array functionalities in Dart, Kotlin.
 
 > Day 3-4: > Linked Lists
 - Grasp the concept of nodes and pointers.
