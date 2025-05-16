@@ -1,101 +1,105 @@
-String brackets = "";
-var occurrence = [];
-
 void main() {
-  brackets = "([{}])";
-  brackets = "()[]{}";
-  brackets = "(]";
-  brackets = "[()]{}";
-  // brackets = "([)]";
-  // brackets = "]";
-  // brackets = "){";
+  var s = "(())[{}]";
+  // s = "))[{}]";
+  // var s = '';
+  print("Given Brackets are :: $s");
 
-  print("Given Bracket array :: \" $brackets \" ");
-
-  for (int i = 0; i < brackets.length; i++) {
-    if (i == 0) {
-      print('First element: ${brackets[i]}');
-
-      if (brackets[i] != ")" && brackets[i] != "]" && brackets[i] != "}") {
-        if (brackets.length % 2 == 0) {
-          print("brackets are even");
-          // Solution.storeOcc(i);
-          Solution.storeStack(i);
-          print("Occurrence array :: $occurrence");
-        } else {
-          print("brackets are not even");
-          occurrence.add(1);
-        }
-      }
-    } else {
-      occurrence.add(-1);
-    }
-  }
-
-  Solution.isValid(brackets);
+  var result = Solution.isValid(s);
+  print("Brackets are - ${result ? "Valid" : "InValid"} ");
 }
 
 class Solution {
+  // solution for 1ms execution time
   static bool isValid(String s) {
-    if (occurrence.isEmpty) {
-      print(">>>>>> Success");
-      return true;
-    } else {
-      print(">>>>>> Failed");
-      return false;
-    }
-  }
+    List<String> stack = [];
 
-  static void storeStack(int i) {
-    if (brackets[i].contains("(")) {
-      occurrence.add(")");
-    }
-    if (brackets[i].contains("[")) {
-      occurrence.add("]");
-    }
-    if (brackets[i].contains("{")) {
-      occurrence.add("}");
-    }
-    if (brackets[i].contains(")")) {
-      if (occurrence.last == ")") {
-        occurrence.removeLast();
+    for (int i = 0; i < s.length; i++) {
+      String char = s[i];
+      if (char == '(' || char == '[' || char == '{') {
+        print("at $i bracket is opening");
+        stack.add(char);
+      } else if (char == ')' && (stack.isEmpty || stack.removeLast() != '(')) {
+        return false;
+      } else if (char == ']' && (stack.isEmpty || stack.removeLast() != '[')) {
+        return false;
+      } else if (char == '}' && (stack.isEmpty || stack.removeLast() != '{')) {
+        return false;
       }
+      print("Stack contains - $stack ");
     }
-    if (brackets[i].contains("]")) {
-      if (occurrence.last == "]") {
-        occurrence.removeLast();
-      }
-    }
-    if (brackets[i].contains("}")) {
-      if (occurrence.last == "}") {
-        occurrence.removeLast();
-      }
-    }
-  }
+    print("Stack contains - $stack ");
 
-  static void storeOcc(int i) {
-    if (brackets[i].contains("(")) {
-      occurrence.add(1);
-    } else if (brackets[i].contains(")")) {
-      if (occurrence.last == 1) {
-        occurrence.remove(1);
-      }
-    }
-
-    if (brackets[i].contains("[")) {
-      occurrence.add(2);
-    } else if (brackets[i].contains("]")) {
-      if (occurrence.last == 2) {
-        occurrence.remove(2);
-      }
-    }
-
-    if (brackets[i].contains("{")) {
-      occurrence.add(3);
-    } else if (brackets[i].contains("}")) {
-      if (occurrence.last == 3) {
-        occurrence.remove(3);
-      }
-    }
+    return stack.isEmpty;
   }
 }
+
+// solution for 2ms execution time
+/*
+bool isValid(String s) {
+  if (s.trim().isEmpty || s.trim().length <= 1) return false;
+  String characters = s.trim();
+  final stack = <String>[];
+  for (var i = 0; i < characters.length; i++) {
+    if (characters[i] == '(' || characters[i] == '{' || characters[i] == '[') {
+      stack.add(characters[i]);
+    } else if (characters[i] == ')' || characters[i] == '}' || characters[i] == ']') {
+      if (stack.isEmpty) return false;
+      String last = stack.removeLast();
+      if (!isMatchingPair(last, characters[i])) return false;
+    }
+  }
+  if (stack.isNotEmpty) return false;
+  return true;
+}
+bool isMatchingPair(String opening, String closing) {
+  return (opening == '(' && closing == ')') ||
+      (opening == '{' && closing == '}') ||
+      (opening == '[' && closing == ']');
+}
+*/
+
+// solution for 3ms execution time
+/*
+bool isValid(String s) {
+  for (int i = 0; i < s.length; i++) {
+    String char = s[i];
+    if (map.containsKey(char)) {
+      if (stack.isEmpty || stack.last != map[char]) {
+        return false;
+      }
+      stack.removeLast();
+    } else {
+      stack.add(char);
+    }
+  }
+  return stack.isEmpty;
+}
+*/
+
+// solution for 8ms execution time
+
+/*
+bool isValid(String s) {
+  for (int i = 0; i < s.length; i++) {
+    String char = s[i];
+
+    if (map.containsValue(char)) {
+      stack.add(char);
+    } else if (map.containsKey(char)) {
+      if (stack.isEmpty || stack.removeLast() != map[char]) {
+      return false;
+      }
+    }
+  }
+  return stack.isEmpty;
+}
+*/
+
+/*
+List<String> stack = [];
+Map<String, String> map = {
+')': '(',
+'}': '{',
+']': '[',
+};
+ */
