@@ -1,5 +1,5 @@
 // Reverse an Array
-// GFG Problem : https://www.geeksforgeeks.org/batch/gfg-160-problems/track/arrays-gfg-160/problem/reverse-an-array
+// GFG Problem Link : https://www.geeksforgeeks.org/batch/gfg-160-problems/track/arrays-gfg-160/problem/reverse-an-array
 
 #include <iostream>
 #include <vector>
